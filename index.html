@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>idoctor</title>
+    <title>Idoctor</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--===============================================================================================-->
@@ -26,38 +26,12 @@
     />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
-    <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="vendor/css-hamburgers/hamburgers.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
     />
     <!--===============================================================================================-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="vendor/animsition/css/animsition.min.css"
-    />
-    <!--===============================================================================================-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="vendor/select2/select2.min.css"
-    />
-    <!--===============================================================================================-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="vendor/daterangepicker/daterangepicker.css"
-    />
-    <!--===============================================================================================-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="vendor/noui/nouislider.min.css"
-    />
-    <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" href="css/util.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <!--===============================================================================================-->
   </head>
@@ -87,7 +61,16 @@
             <button class="contact100-form-btn" id="search">
               <span>
                 Submit
-                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+
+          <div class="container-contact100-form-btn">
+            <button class="contact100-form-btn" id="new">
+              <span>
+                New Patient
+                <i class="fa fa-plus" aria-hidden="true"></i>
               </span>
             </button>
           </div>
@@ -97,70 +80,41 @@
 
     <!--===============================================================================================-->
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
     <script src="vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
+
+    <!-- EASILY POSITION TOOLTIPS, POPOVERS OR ANYTHING WITH JUST A LINE OF CODE! -->
     <script src="vendor/bootstrap/js/popper.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
-
-    <script>
-      $(".js-select2").each(function() {
-        $(this).select2({
-          minimumResultsForSearch: 20,
-          dropdownParent: $(this).next(".dropDownSelect2")
-        });
-
-        $(".js-select2").each(function() {
-          $(this).on("select2:close", function(e) {
-            if ($(this).val() == "Please chooses") {
-              $(".js-show-service").slideUp();
-            } else {
-              $(".js-show-service").slideUp();
-              $(".js-show-service").slideDown();
-            }
-          });
-        });
-      });
-
-      $(".contact100-form-btn").click(() => {
-        var savedForms = JSON.parse(localStorage.getItem("savedForms"));
-
-        let names = savedForms.map(x => x.formName);
-        let found = names.find(x => x === $("#fullName").val());
-
-        if (found) {
-          alert("Patient exsist");
-          window.location = "exsist.html?name=" + $("#fullName").val();
-        } else {
-          window.location = "newPatient.html?name=" + $("#fullName").val();
-        }
-      });
-    </script>
-    <!--===============================================================================================-->
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="vendor/noui/nouislider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <!--===============================================================================================-->
     <script src="js/main.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"
-    ></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
+      (function() {
+        //page initialization code here
 
-      gtag("config", "UA-23581568-13");
+        $("#search").click(() => {
+          var savedForms = JSON.parse(localStorage.getItem("savedForms"));
+          let found = null;
+          if (savedForms) {
+            let names = savedForms.map(x => x.formName);
+            found = names.find(x => x === $("#fullName").val());
+          }
+          if (found) {
+            toastr.success("Patient exsist");
+            window.location = "Exsist.html?name=" + $("#fullName").val();
+          } else {
+            toastr.warning("Patient doesn't exsist");
+          }
+        });
+
+        $("#new").click(() => {
+          window.location = "newPatient.html?name=" + $("#fullName").val();
+        });
+      })();
     </script>
+    <!--===============================================================================================-->
   </body>
 </html>
