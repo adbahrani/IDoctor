@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Diagnosis from "./Diagnosis";
+import Treatment from "./Treatment";
 import './main.css';
 
 
@@ -30,7 +31,7 @@ export class NewPatient extends Component {
                                 type="text"
                                 name="name"
                                 placeholder="Enter Your Name"
-                                id="fullName"/>
+                                id="fullName" />
                         </div>
 
                         <div className="wrap-input100 bg1 rs1-wrap-input100">
@@ -39,7 +40,7 @@ export class NewPatient extends Component {
                                 className="input100"
                                 type="text"
                                 name="phone"
-                                placeholder="Enter Number Phone"/>
+                                placeholder="Enter Number Phone" />
                         </div>
 
                         <div className="wrap-input100 bg1 rs1-wrap-input100">
@@ -48,7 +49,7 @@ export class NewPatient extends Component {
                                 className="input100"
                                 type="text"
                                 name="phone"
-                                placeholder="Enter Age"/>
+                                placeholder="Enter Age" />
                         </div>
 
                         <div className="wrap-input100 input100-select bg1">
@@ -62,16 +63,15 @@ export class NewPatient extends Component {
                             </div>
                         </div>
 
-                        <Diagnosis/>
+                        <Diagnosis />
 
-                        <Diagnosis/>
+                        <Treatment />
 
                         <div className="container-form-btn">
                             <button className="form-btn">
-                                <span>
-                                    Submit
-                                    <i className="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                                </span>
+
+                                Submit
+                           
                             </button>
                         </div>
                     </form>
