@@ -53,19 +53,18 @@ export class Home extends Component {
 
 
                         <button className="form-btn" id="search" onClick={this.handleClick}>
-                            <span>
+                     
                                 Search
-                                <i className="fa fa-long-arrow-right" aria-hidden="true"></i>
-                            </span>
+                     
                         </button>
 
 
                         <Link to="/NewPatient" className="container-form-btn">
                             <button className="form-btn" id="new">
-                                <span>
+                            
                                     New Patient
-                                    <i className="fa fa-plus" aria-hidden="true"></i>
-                                </span>
+                                
+                      
                             </button>
 
                         </Link >
