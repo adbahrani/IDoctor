@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-
-//import {Link } from 'reactstrap';
 import $ from "jquery"
 import { Link } from "react-router-dom";
 import toastr from "toastr";
-
+ 
 
 export class Home extends Component {
     static displayName = Home.name;
@@ -14,13 +12,14 @@ export class Home extends Component {
         console.log();
         var savedForms = JSON.parse(localStorage.getItem("savedForms"));
         let found = null;
+        console.log(savedForms);
         if (savedForms) {
             const names = savedForms.map(x => x.formName);
             found = names.find(x => x === $("#fullName").val());
         }
         if (found) {
             toastr.success("Patient exist");
-            window.location = `Exsist.html?name=${$("#fullName").val()}`;
+            this.props.history.push(`ExistingPatient?name=${$("#fullName").val()}`);
         } else {
             toastr.warning("Patient doesn't exist");
         }

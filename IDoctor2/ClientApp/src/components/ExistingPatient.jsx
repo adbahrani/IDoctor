@@ -7,22 +7,40 @@ import moment from 'moment'
 import './main.css';
 
 
-export class NewPatient extends Component {
-    static displayName = NewPatient.name;
+export class ExistingPatient extends Component {
+   
 
-    //incrementCounter () {
-    //  this.setState({
-    //    currentCount: this.state.currentCount + 1
-    //  });
-    //}
+    state = {
+        existingPatient: [
+            { id: 1, value: "4321" },
+            { id: 2, value: "123" }
+        ]
+    };
+
+
+
+
+    componentDidMount() {
+        const urlParams = new window.URLSearchParams(window.location.search);
+        const myParam = urlParams.get("name");
+
+        $("#fullName").val(myParam);
+    }
+
+
+    addDiagnosis() {
+        this.setState({
+            currentCount: this.state.currentCount + 1
+        });
+    }
 
     handleClick() {
- 
+
         var timeSnapShot = moment().format("DD/MM/YY  HH:MM:SS");
         var data = $("#myForm").serializeArray();
 
         var savedForms = JSON.parse(localStorage.getItem("savedForms"));
-        
+
 
         let currentFrom = {
             formName: data[0].value,
@@ -50,10 +68,10 @@ export class NewPatient extends Component {
         return (
             <div className="container-contact100">
                 <div className="wrap-contact100">
-                    <form className="contact100-form" id="myForm" >
+                    <form className="contact100-form" id="myForm">
 
                         <span className="contact100-form-title">
-                            Details
+                            Existing
                         </span>
 
                         <div
@@ -65,7 +83,7 @@ export class NewPatient extends Component {
                                 type="text"
                                 name="name"
                                 placeholder="Enter Your Name"
-                                id="fullName" />
+                                id="fullName"/>
                         </div>
 
                         <div className="wrap-input100 bg1 rs1-wrap-input100">
@@ -74,7 +92,7 @@ export class NewPatient extends Component {
                                 className="input100"
                                 type="text"
                                 name="phone"
-                                placeholder="Enter Number Phone" />
+                                placeholder="Enter Number Phone"/>
                         </div>
 
                         <div className="wrap-input100 bg1 rs1-wrap-input100">
@@ -83,7 +101,7 @@ export class NewPatient extends Component {
                                 className="input100"
                                 type="text"
                                 name="phone"
-                                placeholder="Enter Age" />
+                                placeholder="Enter Age"/>
                         </div>
 
                         <div className="wrap-input100 bg1">
@@ -97,9 +115,17 @@ export class NewPatient extends Component {
                             </div>
                         </div>
 
-                        <Diagnosis />
+            
 
-                        <Treatment />
+                        {this.state.existingPatient.map(diagnosis => (
+                            <Diagnosis
+                                key={diagnosis.id}
+                                diagnosis={diagnosis}
+                            ></Diagnosis>
+
+                        ))}
+
+                        <Treatment/>
 
                         <div className="container-form-btn">
                             <button className="form-btn" onClick={this.handleClick} type="button">
